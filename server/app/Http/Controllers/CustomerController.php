@@ -14,24 +14,24 @@ class CustomerController extends Controller
     }
 
     public function create(CreateCustomerRequest $request, CustomerServices $cs) {
-        $customer = $cs->create($request);
+        $cs->create($request);
 
-        return response()->json(['message' => 'success', 'data' => $customer]);
+        return response()->json(['message' => 'success']);
     }
 
     public function read(Request $request, CustomerServices $cs) {
-        $customers = $cs->read($request);
-
-        return response()->json(['data' => $customers]);
+        return response()->json(['data' => $cs->read($request)]);
     } 
 
     public function update(UpdatecustomerRequest $request, CustomerServices $cs) {
-        $customer = $cs->update($request);
+        $cs->update($request);
 
-        return response()->json(['message' => 'success', 'data' => $customer]);
+        return response()->json(['message' => 'success']);
     }
 
-    public function delete(CustomerServices $cs) {
-        $cs->delete();
+    public function delete(Request $request, CustomerServices $cs) {
+        $cs->delete($request);
+
+        return response()->json(['message' => 'success']);
     }
 }
