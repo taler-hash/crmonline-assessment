@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\CustomerServices;
 use App\Http\Requests\CreateCustomerRequest;
+use App\Http\Requests\UpdatecustomerRequest;
 
 class CustomerController extends Controller
 {
@@ -24,8 +25,10 @@ class CustomerController extends Controller
         return response()->json(['data' => $customers]);
     } 
 
-    public function update(CustomerServices $cs) {
-        $cs->update();
+    public function update(UpdatecustomerRequest $request, CustomerServices $cs) {
+        $customer = $cs->update($request);
+
+        return response()->json(['message' => 'success', 'data' => $customer]);
     }
 
     public function delete(CustomerServices $cs) {

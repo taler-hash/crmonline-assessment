@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Request;
 use App\Rules\UniqueFullname;
 
 class CreateCustomerRequest extends FormRequest
@@ -27,7 +26,7 @@ class CreateCustomerRequest extends FormRequest
             'first_name' => 'required',
             'last_name' => ['required', new UniqueFullname($this)],
             'email_address' => 'required|email|unique:customers,email_address',
-            'contact_number' => 'required|numeric'
+            'contact_number' => 'numeric|unique:customers,contact_number'
         ];
     }
 }

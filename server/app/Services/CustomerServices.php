@@ -14,8 +14,8 @@ class CustomerServices {
      * @return void
      */
     
-    public function create(CreateCustomerRequest $request) {
-        Customer::create($request->all());
+    public function create(CreateCustomerRequest $request): Customer {
+        return Customer::create($request->all());
     }
     
     /**
@@ -24,14 +24,17 @@ class CustomerServices {
      * @param  Request $request
      * @return Customer
      */
-    public function read(Request $request) {
+    public function read(Request $request): Customer {
         $perPage = $request->filterBy?->paginate ?? 10;
-        
+
         return Customer::orWhere($request->except('filterBy'))->paginate($perPage);
     }
 
-    public function update() {
+    public function update(Request $request): mixed {
+        $customer = Customer::where('id', $request->id);
+        $customer->update($request->except('id'));
 
+        return $customer;
     }
 
     public function delete() {
