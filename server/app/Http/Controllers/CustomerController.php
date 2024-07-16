@@ -13,13 +13,15 @@ class CustomerController extends Controller
     }
 
     public function create(CreateCustomerRequest $request, CustomerServices $cs) {
-        $cs->create($request);
+        $customer = $cs->create($request);
 
-        return response()->json(['message' => 'success']);
+        return response()->json(['message' => 'success', 'data' => $customer]);
     }
 
     public function read(Request $request, CustomerServices $cs) {
-        $cs->read($request);
+        $customers = $cs->read($request);
+
+        return response()->json(['data' => $customers]);
     } 
 
     public function update(CustomerServices $cs) {

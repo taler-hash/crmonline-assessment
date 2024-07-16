@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\CreateCustomerRequest;
 use App\Models\Customer;
 
@@ -16,9 +17,17 @@ class CustomerServices {
     public function create(CreateCustomerRequest $request) {
         Customer::create($request->all());
     }
-
-    public function read() {
-
+    
+    /**
+     * read
+     *
+     * @param  Request $request
+     * @return Customer
+     */
+    public function read(Request $request) {
+        $perPage = $request->filterBy?->paginate ?? 10;
+        
+        return Customer::orWhere($request->except('filterBy'))->paginate($perPage);
     }
 
     public function update() {
