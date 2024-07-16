@@ -1,8 +1,12 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CustomerController;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::controller(CustomerController::class)
+->group(function() {
+    Route::post('/create', 'create');
+    Route::post('/read', 'read');
+    Route::post('/update', 'update');
+    Route::post('/delete', 'delete');
+});
