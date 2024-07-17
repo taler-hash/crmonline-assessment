@@ -30,7 +30,7 @@ class WhereNotInUniqueFullname implements ValidationRule
         ->exists();
 
         if($isExisted) {
-            $fail('Name is already Existed.');
+            $fail('Customer is already Existed.');
          }
     }
 }

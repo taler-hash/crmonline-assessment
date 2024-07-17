@@ -5,6 +5,7 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateCustomerRequest;
 use App\Models\Customer;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class CustomerServices {    
     /**
@@ -24,7 +25,7 @@ class CustomerServices {
      * @param  Request $request
      * @return Customer
      */
-    public function read(Request $request): Customer {
+    public function read(Request $request): LengthAwarePaginator {
         $perPage = $request->filterBy?->paginate ?? 10;
 
         return Customer::orWhere($request->except('filterBy'))->paginate($perPage);

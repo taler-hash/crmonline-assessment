@@ -27,7 +27,7 @@ class UniqueFullname implements ValidationRule
         $isExisted = Customer::where(['first_name' => $this->request->first_name, 'last_name' => $this->request->last_name])->exists();
 
         if($isExisted) {
-            $fail('Name is already Existed.');
+            $fail('Customer is already Existed.');
          }
     }
 }
