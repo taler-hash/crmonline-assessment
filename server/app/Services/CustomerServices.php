@@ -28,7 +28,7 @@ class CustomerServices {
     public function read(Request $request): LengthAwarePaginator {
         $perPage = $request->filterBy?->paginate ?? 10;
 
-        return Customer::orWhere($request->except('filterBy'))->orderBy('id', 'desc')->paginate($perPage);
+        return Customer::orWhere($request->except('page'))->orderBy('id', 'desc')->paginate($perPage);
     }
     
     /**

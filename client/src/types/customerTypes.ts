@@ -12,3 +12,7 @@ export interface errorProps {
   email_address?: [],
   contact_number?: [] 
 }
+
+export interface filterProps {
+  page?: number
+}

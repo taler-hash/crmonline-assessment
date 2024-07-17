@@ -1,7 +1,8 @@
 import { createContext } from 'react'
+import { filterProps } from '@/types/customerTypes'
 
 interface CustomerContextProps {
-  renderList: () => void
+  renderList: (filter: filterProps) => void
 }
 
 const CustomerContext = createContext<CustomerContextProps>({

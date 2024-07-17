@@ -2,16 +2,18 @@ import { useRef } from "react"
 import Header from "./header"
 import List from "./list"
 import CustomerContext from "@/context/CustomerContext"
+import { filterProps } from "@/types/customerTypes"
 
 export default function Table() {
   interface ListProps {
-    initList: () => void,
+    initList: (filter: filterProps) => void,
   }
 
   const list = useRef<ListProps | null>(null)
 
-  function renderList() {
-    list.current?.initList()
+
+  const renderList = (filter: filterProps) => {
+    list.current?.initList(filter)
   }
 
   return (
@@ -19,6 +21,7 @@ export default function Table() {
       <CustomerContext.Provider value={{ renderList }}>
         <Header />
         <List ref={list}/>
+        
       </CustomerContext.Provider>
     </div>
   )
