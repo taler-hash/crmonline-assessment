@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Services\CustomerServices;
 use App\Http\Requests\CreateCustomerRequest;
 use App\Http\Requests\UpdatecustomerRequest;
+use App\Http\Requests\DeleteCustomerRequest;
 
 class CustomerController extends Controller
 {
@@ -29,7 +30,7 @@ class CustomerController extends Controller
         return response()->json(['message' => 'success']);
     }
 
-    public function delete(Request $request, CustomerServices $cs) {
+    public function delete(DeleteCustomerRequest $request, CustomerServices $cs) {
         $cs->delete($request);
 
         return response()->json(['message' => 'success']);
