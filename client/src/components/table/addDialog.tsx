@@ -12,7 +12,7 @@ import DisplayErrors from "./displayError"
 
 
 
-const AddDialog = forwardRef(function (props, ref) {
+const AddDialog = forwardRef(function (_, ref) {
     const [open, setOpen] = useState<boolean>(false);
     const [fields, setFields] = useState<fieldProps>({})
     const [isLoading, setIsLoading] = useState<boolean>(false)

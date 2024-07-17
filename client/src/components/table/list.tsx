@@ -22,7 +22,7 @@ interface FilterProps {
   searchstring: string
 }
 
-const List = forwardRef(function (props, ref) {
+const List = forwardRef(function (_, ref) {
 
   const [customers, setCustomers] = useState<CustomerProps>({
     current_page: 1

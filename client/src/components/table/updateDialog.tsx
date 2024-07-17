@@ -63,7 +63,7 @@ const UpdateDialog = forwardRef(function (props: propTypes, ref) {
     setIsLoading(() => true)
 
     axios.post('customer/update', fields)
-      .then(res => {
+      .then(() => {
         toast({
           title: 'Success',
           description: 'Successfully Updated Customer'

@@ -43,7 +43,7 @@ const DeleteDialog = forwardRef(function (props: propTypes, ref) {
   function handleSubmit() {
     setIsLoading(() => true)
     axios.post('/customer/delete', fields)
-    .then(res => {
+    .then(() => {
       toast({
         title: 'Success',
         description: 'Successfully Deleted Customer'

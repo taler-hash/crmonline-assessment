@@ -10,7 +10,7 @@ use App\Http\Requests\UpdatecustomerRequest;
 class CustomerController extends Controller
 {
     public function index() {
-
+        return view('customers');
     }
 
     public function create(CreateCustomerRequest $request, CustomerServices $cs) {
