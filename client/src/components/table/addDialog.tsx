@@ -2,30 +2,22 @@ import * as Alert from "../ui/alert-dialog"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 import { Button } from "../ui/button"
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react"
+import { forwardRef, useContext, useEffect, useImperativeHandle, useState } from "react"
 import axios from '@/axios'
 import LoadingRequest from "../loadingRequest"
 import { useToast } from "../ui/use-toast"
+import CustomerContext from "@/context/CustomerContext"
+import { fieldProps, errorProps } from "@/types/customerTypes"
+import DisplayErrors from "./displayError"
 
-interface fieldProps {
-  first_name?: string,
-  last_name?: string,
-  email_address?: string,
-  contact_number?: string | null
-}
 
-interface errorProps {
-  first_name?: [],
-  last_name?: [],
-  email_address?: [],
-  contact_number?: [] 
-}
 
 const AddDialog = forwardRef(function (props, ref) {
     const [open, setOpen] = useState<boolean>(false);
     const [fields, setFields] = useState<fieldProps>({})
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [ errors, setErrors ] = useState<errorProps>({})
+    const _CustomerContext = useContext(CustomerContext)
 
     const { toast } = useToast()
 
@@ -61,10 +53,11 @@ const AddDialog = forwardRef(function (props, ref) {
           description: 'Successfully added a new customer.'
         })
         setOpen(() => false)
+        _CustomerContext.renderList()
       })
       .catch(err => {
-        const status = err.response.status
-        const errors = err.response.data.errors
+        const status = err.response?.status
+        const errors = err.response?.data.errors
         console.log(err)
         if(status === 422) {
           setErrors(() => errors)
@@ -82,24 +75,13 @@ const AddDialog = forwardRef(function (props, ref) {
       setFields(prev => ({...prev, [key]: value}))
     }
 
-    interface FieldErrorProps {
-      fieldErrors?: []
-    }
-
-    function DisplayErrors(props: FieldErrorProps) {
-      return props.fieldErrors?.map((e, i) => {
-        return <div key={i} className="text-rose-500 text-sm">{e}</div>
-      })
-    }
-
     return (
       <Alert.AlertDialog open={open}>
           <Alert.AlertDialogContent className="w-96">
             { isLoading && <LoadingRequest />}
             <Alert.AlertDialogHeader>
               <Alert.AlertDialogTitle>Add Customer</Alert.AlertDialogTitle>
-              <Alert.AlertDialogDescription>
-              </Alert.AlertDialogDescription>
+              <Alert.AlertDialogDescription></Alert.AlertDialogDescription>
             </Alert.AlertDialogHeader>
             <div className="space-y-4 w-full">
               <div className="grid w-full items-center gap-1.5">

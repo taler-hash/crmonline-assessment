@@ -26,7 +26,7 @@ class UpdatecustomerRequest extends FormRequest
             'first_name' => 'required',
             'last_name' => ['required', new WhereNotInUniqueFullname($this)],
             'email_address' => "required|email|unique:customers,email_address,$this->id",
-            'contact_number' => 'numeric|unique:customers,contact_number'
+            'contact_number' => "numeric|unique:customers,contact_number,$this->id"
         ];
     }
 }

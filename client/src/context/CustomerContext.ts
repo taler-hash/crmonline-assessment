@@ -1,5 +1,11 @@
 import { createContext } from 'react'
 
-const CustomerContext = createContext({})
+interface CustomerContextProps {
+  renderList: () => void
+}
+
+const CustomerContext = createContext<CustomerContextProps>({
+  renderList: () => {}
+})
 
 export default CustomerContext
