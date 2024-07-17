@@ -29,13 +29,13 @@ const UpdateDialog = forwardRef(function (props: propTypes, ref) {
     }
   })
 
-
-  const initFields = useCallback(() => {
-    setFields(() => props.fields)
+  useEffect(() => {
+    initFields()
   }, [open])
 
-  function resetFields() {
-    setFields({})
+
+  function initFields() {
+    setFields(() => props.fields)
     setErrors({})
   }
 
@@ -68,7 +68,9 @@ const UpdateDialog = forwardRef(function (props: propTypes, ref) {
           title: 'Success',
           description: 'Successfully Updated Customer'
         })
+
         setOpen(() => false)
+        _CustomerContext.renderList({})
       })
       .catch(err => {
         const status = err.response?.status

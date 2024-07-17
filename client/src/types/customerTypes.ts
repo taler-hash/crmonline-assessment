@@ -14,5 +14,6 @@ export interface errorProps {
 }
 
 export interface filterProps {
-  page?: number
+  page?: number,
+  searchstring?: string
 }

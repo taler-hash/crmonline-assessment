@@ -26,9 +26,13 @@ class CustomerServices {
      * @return Customer
      */
     public function read(Request $request): LengthAwarePaginator {
-        $perPage = $request->filterBy?->paginate ?? 10;
 
-        return Customer::orWhere($request->except('page'))->orderBy('id', 'desc')->paginate($perPage);
+        return Customer::when(!empty($request->searchstring), function($q) use ($request) {
+            return $q->where('first_name', $request->searchstring)
+            ->orWhere('last_name', $request->searchstring)
+            ->orWhere('email_address', $request->searchstring)
+            ->orWhere('contact_number', $request->searchstring);
+        })->orderBy('id', 'desc')->paginate(10);
     }
     
     /**

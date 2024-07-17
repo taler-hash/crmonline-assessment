@@ -2,14 +2,24 @@ import AddDialog from './addDialog'
 import { UserPlusIcon } from '@heroicons/react/24/solid'
 import { Input } from "../ui/input"
 import { Button } from '../ui/button'
-import { useRef } from 'react'
-import axios from '@/axios'
+import { useRef, KeyboardEvent, useContext } from 'react'
+import CustomerContext from '@/context/CustomerContext'
 
 export default function Header() {
+  const cs = useContext(CustomerContext)
+
   interface AddDialogProps {
     handleOpen: () => void,
   }
   const ad = useRef<AddDialogProps | null>(null)
+
+  function handleSearch(e:KeyboardEvent<HTMLInputElement>) {
+    if(e.key === "Enter") {
+      const target = e.target as HTMLInputElement
+
+      cs.renderList({searchstring: target.value})
+    }
+  }
 
   return (
     <>
@@ -21,7 +31,7 @@ export default function Header() {
           </Button>
         </div>
         <div className="">
-          <Input type="text" placeholder='Search...' />
+          <Input type="text" onKeyDown={handleSearch} placeholder='Search... and Enter' />
         </div>
       </div>
       <AddDialog ref={ad}/>

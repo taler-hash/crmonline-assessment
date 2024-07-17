@@ -10,11 +10,16 @@ import _Pagination from './pagination'
 interface CustomerProps {
   data?: [],
   links?: []
-  current_page: number
+  current_page?: number
 }
 
 interface UpdateDialogProps {
   handleOpen: () => void,
+}
+
+interface FilterProps {
+  page: number, 
+  searchstring: string
 }
 
 const List = forwardRef(function (props, ref) {
@@ -23,19 +28,29 @@ const List = forwardRef(function (props, ref) {
     current_page: 1
   })
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [ filterOptions, setFilterOptions ] = useState<FilterProps>({
+    page: 1,
+    searchstring: ''
+  })
   const ud = useRef<UpdateDialogProps | null>(null);
+  const dd = useRef<UpdateDialogProps | null>(null);
 
   useEffect(() => {
-    initList({})
-  }, [])
+    renderList()
+  }, [filterOptions])
 
   function initList(filter: filterProps) {
-    setIsLoading(() => true)
 
+    if(filter.searchstring) filter.page = 1
+
+    setFilterOptions(prev => ({...prev, ...filter}))
+  }
+
+  function renderList() {
+
+    setIsLoading(() => true)
     axios.get("customers", {
-      params: {
-        page: filter?.page ?? 1
-      }
+      params: filterOptions
     })
       .then(res => {
         setCustomers(() => res.data.data)
@@ -46,6 +61,7 @@ const List = forwardRef(function (props, ref) {
         console.log(err)
       })
   }
+
   useImperativeHandle(ref, () => {
     return {
       initList
@@ -58,7 +74,6 @@ const List = forwardRef(function (props, ref) {
         {isLoading && <LoadingRequest />}
         <div className="h-full overflow-auto">
           <Table.Table>
-            <Table.TableCaption>A list of recent customers .</Table.TableCaption>
             <Table.TableHeader>
               <Table.TableRow>
                 <Table.TableHead>#</Table.TableHead>
@@ -74,11 +89,11 @@ const List = forwardRef(function (props, ref) {
                   <Table.TableCell className="font-medium">{index + 1}</Table.TableCell>
                   <Table.TableCell>{customer.full_name}</Table.TableCell>
                   <Table.TableCell>{customer.email_address}</Table.TableCell>
-                  <Table.TableCell className="text-right">{customer.contact_number}</Table.TableCell>
+                  <Table.TableCell >{customer.contact_number}</Table.TableCell>
                   <Table.TableCell>
                     <div className="flex items-center gap-x-2">
                       <UpdateDialog fields={customer} ref={ud} />
-                      <DeleteDialog />
+                      <DeleteDialog fields={customer} ref={dd}/>
                     </div>
                   </Table.TableCell>
                 </Table.TableRow>

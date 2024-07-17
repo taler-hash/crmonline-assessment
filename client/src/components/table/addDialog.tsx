@@ -15,7 +15,7 @@ import DisplayErrors from "./displayError"
 const AddDialog = forwardRef(function (props, ref) {
     const [open, setOpen] = useState<boolean>(false);
     const [fields, setFields] = useState<fieldProps>({})
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     const [ errors, setErrors ] = useState<errorProps>({})
     const _CustomerContext = useContext(CustomerContext)
 
@@ -53,7 +53,7 @@ const AddDialog = forwardRef(function (props, ref) {
           description: 'Successfully added a new customer.'
         })
         setOpen(() => false)
-        _CustomerContext.renderList()
+        _CustomerContext.renderList({})
       })
       .catch(err => {
         const status = err.response?.status
