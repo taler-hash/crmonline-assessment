@@ -54,11 +54,7 @@ const List = forwardRef(function (props, ref) {
     })
       .then(res => {
         setCustomers(() => res.data.data)
-        console.log(res.data.data)
         setIsLoading(() => false)
-      })
-      .catch(err => {
-        console.log(err)
       })
   }
 

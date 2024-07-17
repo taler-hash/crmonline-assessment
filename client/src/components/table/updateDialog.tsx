@@ -75,7 +75,6 @@ const UpdateDialog = forwardRef(function (props: propTypes, ref) {
       .catch(err => {
         const status = err.response?.status
         const errors = err.response?.data.errors
-        console.log(err)
         if (status === 422) {
           setErrors(() => errors)
         }
