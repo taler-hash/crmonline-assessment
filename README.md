@@ -6,6 +6,14 @@
  - Client - Front End
  - Server - Back End
 
+## Tech stacks
+- Laravel
+- React.JS ( Typescript )
+- Tailwind.CSS
+- ShadCN
+- Mysql
+- Docker
+
  ## Prerequisites
   You must install this before going to the installation
 
