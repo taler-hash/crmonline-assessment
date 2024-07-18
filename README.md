@@ -21,4 +21,6 @@
 ## 🔗 Repository
 [![test](https://img.shields.io/badge/repository-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://github.com/taler-hash/crmonline-assessment)
 
+docker-compose up -d && docker exec laravel-docker bash -c "composer update && cp .env.dummy .env && php artisan migrate"
+
 

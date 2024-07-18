@@ -16,7 +16,7 @@ class CustomerTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_create_operation_with_existing_data(): void
+    public function test_create_operation(): void
     {
         $response = $this->json('POST','/api/customer/create', [
             'first_name' => 'jurie',
@@ -38,7 +38,7 @@ class CustomerTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_update_operation_with_existing_data() : void
+    public function test_update_operation() : void
     {
         $response = $this->json('POST', '/api/customer/update', [
             'first_name' => 'jurie',
