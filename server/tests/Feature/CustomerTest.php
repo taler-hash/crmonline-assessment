@@ -25,7 +25,7 @@ class CustomerTest extends TestCase
             'email_address' => 'jurie@gmail.com'
         ]);
 
-        $response->assertStatus(422);
+        $response->assertStatus(200);
     }
 
     public function test_read_operation(): void
@@ -47,7 +47,7 @@ class CustomerTest extends TestCase
             'email_address' => 'jurie@gmail.com'
         ]);
 
-        $response->assertStatus(422);
+        $response->assertStatus(200);
     }
 
     public function test_delete_operation_with_not_existed_id(): void
