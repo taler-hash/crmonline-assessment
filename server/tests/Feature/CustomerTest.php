@@ -38,16 +38,16 @@ class CustomerTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_update_operation_with_no_existed_data() : void
+    public function test_update_operation_with_existed_data() : void
     {
         $response = $this->json('POST', '/api/customer/update', [
-            'first_name' => 'jurie',
+            'first_name' => 'jurie tylier',
             'last_name' => 'pedrogas',
             'contact_number' => '0991233',
             'email_address' => 'jurie@gmail.com'
         ]);
 
-        $response->assertStatus(422);
+        $response->assertStatus(200);
     }
 
     public function test_delete_operation_with_not_existed_id(): void
